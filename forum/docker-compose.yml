@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  db:
+    build:
+      context: ./sql
+      dockerfile: Dockerfile
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: project
+    volumes:
+      - ./sql/setup.sql:/docker-entrypoint-initdb.d/setup.sql
+    ports:
+      - "3306:3306"
+
+  web:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./app:/app
+    environment:
+      FLASK_ENV: development
+

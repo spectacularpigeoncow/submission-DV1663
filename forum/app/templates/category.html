@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang=""en>
+<head>
+    <title>Category Threads</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Threads</h1>
+    <ul>
+        {% for thread in threads %}
+        <li>
+            <a href="{{ url_for('view_thread', post_id=thread['post_id']) }}">{{ thread['title'] }}</a>
+            {% if session['user_id'] == thread['user_id'] %}
+            <a href="{{ url_for('delete_post', post_id=thread['post_id']) }}" onclick="return confirm('Are you sure you want to delete this post?');"> (delete)</a>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('new_post', category_id=threads[0]['category_id']) }}">Create a new post</a>
+    <br>
+    <a href="{{ url_for('index') }}">Back to categories</a>
+</body>
+</html>
