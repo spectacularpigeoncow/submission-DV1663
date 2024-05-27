@@ -3,6 +3,6 @@
 Depends on Docker and docker-compose
 
 run by running:
-'''bash
+```bash
 sudo docker-compose up --build
-'''
+```
